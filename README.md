@@ -25,6 +25,7 @@ This is a basic example which shows you how to solve a common problem:
 library(ggplot2)
 #> Warning: package 'ggplot2' was built under R version 4.0.5
 library(ggNaruto)
+library(cowplot)
 help(package="ggNaruto")
 naruto_palette("Jiraiya")
 #> [1] "#f6f6f4" "#0d0d0d" "#c0c1ba" "#ddcb82" "#a34635" "#999a7a" "#565b3e"
@@ -46,20 +47,15 @@ dat01<-data.frame(x=LETTERS[1:8],y=1:8)
 ggplot(data=dat01,aes(x=x,y=y))+
   geom_col(aes(fill=x))+
   scale_fill_naruto_d(name = "Team7")+
-  theme_bw()
+  theme_bw() -> my_plot
+
+team7<-system.file("extdata",'team7.png',package = "ggNaruto")
+team7
+#> [1] "D:/Biotools/R/R-4.0.3/library/ggNaruto/extdata/team7.png"
+ggdraw() +
+  draw_image(team7) -> p2
+
+plot_grid(my_plot,p2)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
-
-``` r
-
-library(png)
-library(ggpubr)
-img<-readPNG("inst/extdata/team7.png")
-p<-ggplot()+
-  background_image(img)+
-  theme_void()
-print(p)
-```
-
-<img src="man/figures/README-example-2.png" width="100%" />

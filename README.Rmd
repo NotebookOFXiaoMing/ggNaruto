@@ -35,6 +35,7 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example}
 library(ggplot2)
 library(ggNaruto)
+library(cowplot)
 help(package="ggNaruto")
 naruto_palette("Jiraiya")
 naruto_palettes
@@ -43,16 +44,14 @@ dat01<-data.frame(x=LETTERS[1:8],y=1:8)
 ggplot(data=dat01,aes(x=x,y=y))+
   geom_col(aes(fill=x))+
   scale_fill_naruto_d(name = "Team7")+
-  theme_bw()
+  theme_bw() -> my_plot
 
+team7<-system.file("extdata",'team7.png',package = "ggNaruto")
+team7
+ggdraw() +
+  draw_image(team7) -> p2
 
-library(png)
-library(ggpubr)
-img<-readPNG("inst/extdata/team7.png")
-p<-ggplot()+
-  background_image(img)+
-  theme_void()
-print(p)
+plot_grid(my_plot,p2)
 ```
 
 

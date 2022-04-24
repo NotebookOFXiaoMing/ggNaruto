@@ -11,10 +11,10 @@ The goal of ggNaruto is to provide Colour palettes inspired by Naruto.
 ## Installation
 
 You can install the released version of ggNaruto from
-[CRAN](https://CRAN.R-project.org) with:
+[github](https://github.com/NotebookOFXiaoMing/ggNaruto) with:
 
 ``` r
-install.packages("ggNaruto")
+devtools::install_github("NotebookOFXiaoMing/ggNaruto")
 ```
 
 ## Example
@@ -22,6 +22,44 @@ install.packages("ggNaruto")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
+library(ggplot2)
+#> Warning: package 'ggplot2' was built under R version 4.0.5
 library(ggNaruto)
-## basic example code
+help(package="ggNaruto")
+naruto_palette("Jiraiya")
+#> [1] "#f6f6f4" "#0d0d0d" "#c0c1ba" "#ddcb82" "#a34635" "#999a7a" "#565b3e"
+#> [8] "#7e5a4b" "#898989"
+#> attr(,"class")
+#> [1] "palette"
+#> attr(,"name")
+#> [1] "Jiraiya"
+naruto_palettes
+#> $Jiraiya
+#> [1] "#f6f6f4" "#0d0d0d" "#c0c1ba" "#ddcb82" "#a34635" "#999a7a" "#565b3e"
+#> [8] "#7e5a4b" "#898989"
+#> 
+#> $Team7
+#> [1] "#13396b" "#f0c0c0" "#96253d" "#dedd4e" "#e88452" "#9a9ba6" "#798274"
+#> [8] "#bb394c"
+
+dat01<-data.frame(x=LETTERS[1:8],y=1:8)
+ggplot(data=dat01,aes(x=x,y=y))+
+  geom_col(aes(fill=x))+
+  scale_fill_naruto_d(name = "Team7")+
+  theme_bw()
 ```
+
+<img src="man/figures/README-example-1.png" width="100%" />
+
+``` r
+
+library(png)
+library(ggpubr)
+img<-readPNG("inst/extdata/team7.png")
+p<-ggplot()+
+  background_image(img)+
+  theme_void()
+print(p)
+```
+
+<img src="man/figures/README-example-2.png" width="100%" />
